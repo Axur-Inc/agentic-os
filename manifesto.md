@@ -6,19 +6,17 @@ By Fábio Ramos, CEO, and Jônadas Techio, Staff PM
 
 *Axur · May 2026*
 
-*Pre-publication draft (v8)*
-
-Before Block published [<span class="underline">"From Hierarchy to Intelligence"</span>](https://block.xyz/inside/from-hierarchy-to-intelligence), we were already building the layer they describe. Over seven weeks, more than twenty people across eight functions inside Axur built a new operational playbook from the ground up. None of them were engineers. Building infrastructure was not in any of their job descriptions. We did not plan for it to happen this way. We are publishing this because every knowledge company is about to face the question we faced, and most are about to answer it wrong.
+Before Block published ["From Hierarchy to Intelligence"](https://block.xyz/inside/from-hierarchy-to-intelligence), we were already building the layer they describe. Over seven weeks, more than twenty people across eight functions inside Axur built a new operational playbook from the ground up. None of them were engineers. Building infrastructure was not in any of their job descriptions. We did not plan for it to happen this way. We are publishing this because every knowledge company is about to face the question we faced, and most are about to answer it wrong.
 
 The wrong answer is some version of *buy more AI*. That answer creates a one-time productivity bump that everyone will call transformation. The companies that compound over the next decade will not be the ones that adopted the most agentic tools. They will be the ones that rebuilt the layer those tools read.
 
-Two things made this possible in the last eighteen months. The cost of execution dropped sharply: as [<span class="underline">Ian Beacraft</span>](https://www.youtube.com/watch?v=DTTnrIx2bA4) put it earlier this year, building a working prototype with AI now costs less than holding the meeting that would plan it. And the format the agents read standardized. Markdown in Git, with a thin instruction manifest at the root, modular references loaded on demand. The same pattern shows up in Claude Code, Cursor, GitHub Copilot, in the [<span class="underline">AGENTS.md</span>](https://github.com/agentsmd/agents.md) standard adopted across thousands of repositories, and in [<span class="underline">llms.txt</span>](https://llmstxt.org) for the public web. The knowledge layer is no longer one vendor's bet. It is what the ecosystem converged on.
+Two things made this possible in the last eighteen months. The cost of execution dropped sharply: as [Ian Beacraft](https://www.youtube.com/watch?v=DTTnrIx2bA4) put it earlier this year, building a working prototype with AI now costs less than holding the meeting that would plan it. And the format the agents read standardized. Markdown in Git, with a thin instruction manifest at the root, modular references loaded on demand. The same pattern shows up in Claude Code, Cursor, GitHub Copilot, in the [AGENTS.md](https://github.com/agentsmd/agents.md) standard adopted across thousands of repositories, and in [llms.txt](https://llmstxt.org) for the public web. The knowledge layer is no longer one vendor's bet. It is what the ecosystem converged on.
 
 Six principles emerged in practice. We did not define them upfront. We hit constraints, formalized rules, and they stuck because removing any one of them brought the failures back. What follows walks through the six, then shows what they enable.
 
 **Six rules underneath the architecture**
 
-**1. Knowledge is Markdown** **in Git**
+**1. Knowledge is Markdown in Git**
 
 The canonical format for everything the company knows is plain Markdown files in a Git repository. Not a database, not a SaaS platform, not a proprietary format. Markdown is human-readable, version-controlled, portable across tools, and natively parseable by every major LLM. The constraint is productive. It forces clarity on what counts as durable knowledge versus what counts as ephemera.
 
@@ -36,41 +34,28 @@ No agent and no human should load the entire knowledge base to answer a question
 
 There is one source of truth that everyone reads from and contributes to. There is also a personal layer that each contributor manages on their own: notes, drafts, task lists, working memory. The shared layer is governed (reviewed before merge). The personal layer is autonomous (gitignored). This separation prevents the two failure modes of knowledge systems: the wiki nobody updates because contributing is too heavy, and the wiki nobody trusts because anyone can write anything.
 
-THE KNOWLEDGE LAYER: TWO LAYERS, FIVE SURFACES
+```
+                 THE KNOWLEDGE LAYER: TWO LAYERS, FIVE SURFACES
 
-┌────────────────────────────────┐ ┌────────────────────────────────┐
+  ┌────────────────────────────────┐  ┌────────────────────────────────┐
+  │  COMMONS                       │  │  WORKSHOP                      │
+  │  shared · versioned · governed │  │  personal · autonomous · private│
+  ├────────────────────────────────┤  ├────────────────────────────────┤
+  │                                │  │                                │
+  │  knowledge-base/               │  │  memory/                       │
+  │    what the company knows      │  │    people, projects, drafts    │
+  │                                │  │                                │
+  │  shared-projects/              │  │  CLAUDE.md + TASKS.md          │
+  │    work in flight              │  │    personal navigation         │
+  │                                │  │                                │
+  │  tools/                        │  │  .claude/skills/               │
+  │    executable capabilities     │  │    procedural workflows        │
+  │                                │  │                                │
+  └────────────────────────────────┘  └────────────────────────────────┘
 
-│ COMMONS │ │ WORKSHOP │
-
-│ shared · versioned · governed │ │ personal · autonomous · private│
-
-├────────────────────────────────┤ ├────────────────────────────────┤
-
-│ │ │ │
-
-│ knowledge-base/ │ │ memory/ │
-
-│ what the company knows │ │ people, projects, drafts │
-
-│ │ │ │
-
-│ shared-projects/ │ │ CLAUDE.md + TASKS.md │
-
-│ work in flight │ │ personal navigation │
-
-│ │ │ │
-
-│ tools/ │ │ .claude/skills/ │
-
-│ executable capabilities │ │ procedural workflows │
-
-│ │ │ │
-
-└────────────────────────────────┘ └────────────────────────────────┘
-
-slow change, reviewed fast change, autonomous,
-
-before merge gitignored from shared repo
+         slow change, reviewed             fast change, autonomous,
+         before merge                      gitignored from shared repo
+```
 
 **4. Tool agnosticism**
 
@@ -86,7 +71,7 @@ Agent workflows should be encoded as reusable skills, not one-off prompts. A ski
 
 **What we believe in: the world model**
 
-Today, what enters the knowledge layer is decided by people, often with heavy agent help. The pipe from operational signals into memory is not yet closed. Contributors write, review, merge. The direction we are heading, and the one [<span class="underline">Block describes as a "world model"</span>](https://block.xyz/inside/from-hierarchy-to-intelligence), goes further. The same layer fed continuously by the inputs the company already produces. Customer conversations, product usage, financial data, lifecycle events. Updated automatically as those signals arrive. The first half is real today. Skills already pull live operational data into outputs through MCP connectors. The remaining half — the closed loop where those same signals also update memory without a person in the middle — is the next surface we are building. Every principle above already pays off without it.
+Today, what enters the knowledge layer is decided by people, often with heavy agent help. The pipe from operational signals into memory is not yet closed. Contributors write, review, merge. The direction we are heading, and the one [Block describes as a "world model"](https://block.xyz/inside/from-hierarchy-to-intelligence), goes further. The same layer fed continuously by the inputs the company already produces. Customer conversations, product usage, financial data, lifecycle events. Updated automatically as those signals arrive. The first half is real today. Skills already pull live operational data into outputs through MCP connectors. The remaining half — the closed loop where those same signals also update memory without a person in the middle — is the next surface we are building. Every principle above already pays off without it.
 
 **What the rules enable**
 
@@ -104,33 +89,27 @@ These are not engineers doing engineering. These are PMs doing analyst work, mar
 
 Roles do not disappear. They become fluid. Once a function's methodology is encoded in the knowledge layer as a reusable skill, every other function can compose against it. The chart stays. The boundaries become permeable. Everybody can do more with agents because everybody can read what every other function knows.
 
-THE ARCHITECT EMERGENCE: ASSUMED vs OBSERVED
+```
+                   THE ARCHITECT EMERGENCE: ASSUMED vs OBSERVED
 
-ASSUMED OBSERVED
-
-───────── ────────────────────────────
-
-Operator Operator + Designer + Architect
-
-│ months same person, same week,
-
-▼ inside the function they
-
-Designer already work in
-
-│ months
-
-▼
-
-Architect Six examples in our pilot,
-
-(years, specialized) six different functions,
-
-inside engineering teams none of them engineering.
-
-Across C-Level, PM, Marketing, CS,
-
-Operations, Research, Intelligence
+  ┌──────────────────────────────────┐  ┌──────────────────────────────────────┐
+  │  ASSUMED (prior model)           │  │  OBSERVED (our pilot)                │
+  ├──────────────────────────────────┤  ├──────────────────────────────────────┤
+  │                                  │  │                                      │
+  │  Operator                        │  │  Operator + Designer + Architect     │
+  │    months of practice            │  │    same person · same week ·         │
+  │         │                        │  │    inside their existing function    │
+  │         ▼                        │  │                                      │
+  │  Designer                        │  │  Six examples, six functions:        │
+  │    months more                   │  │    C-Level · PM · Marketing · CS     │
+  │         │                        │  │    Operations · Research · Intel.    │
+  │         ▼                        │  │                                      │
+  │  Architect                       │  │  None of them were engineers.        │
+  │    years · specialized ·         │  │                                      │
+  │    inside engineering            │  │                                      │
+  │                                  │  │                                      │
+  └──────────────────────────────────┘  └──────────────────────────────────────┘
+```
 
 **Agents contribute arguments, not just artifacts**
 

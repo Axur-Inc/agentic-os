@@ -112,8 +112,8 @@ The substrate (`knowledge-base/`, `shared-projects/`, `tools/`, `memory/`) is id
 
 ## License
 
-MIT (proposed — finalize before public release).
+MIT
 
 ## Origin
 
-Built by Jônadas Techio and Fábio Ramos at Axur, based on a seven-week internal pilot. The full account is in the [field report]. The argument is in the [manifesto].
+Built by Jônadas Techio and Fábio Ramos at Axur, based on a seven-week internal pilot. The full account is in the [field report](../field-report.md). The argument is in the [manifesto](../manifesto.md).

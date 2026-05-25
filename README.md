@@ -32,7 +32,7 @@ The starter kit works with Claude Code, Cowork, Cursor, GitHub Copilot, OpenCode
 
 ## Authors
 
-Fabio Ramos and [Jonadas Techio](https://jonadas.com) -- Axur, May 2026.
+Fábio Ramos and [Jônadas Techio](https://jonadas.com) — Axur, May 2026.
 
 ## License
 
