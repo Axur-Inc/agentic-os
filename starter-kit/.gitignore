@@ -1,0 +1,41 @@
+# Personal layer — each contributor's, not synced
+CLAUDE.md
+TASKS.md
+memory/people/*.md
+memory/projects/*.md
+memory/context/*.md
+memory/drafts/*.md
+memory/glossary.md
+memory/story-bank.md
+
+# Personal skills (some get promoted to shared plugins later)
+.claude/skills/
+skills/
+
+# But keep the structure files
+!memory/README.md
+!skills/session-review/
+!skills/session-review/SKILL.md
+
+# Local environment
+.env
+.env.local
+.env.*.local
+
+# Logs and OS junk
+*.log
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Editor configs (keep yours private)
+.vscode/
+.idea/
+
+# Language-specific
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
